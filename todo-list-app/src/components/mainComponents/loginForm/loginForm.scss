@@ -1,0 +1,16 @@
+@import '../../../variables';
+
+.login-form-page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px;
+}
+
+.login-form {
+    padding: 100px 0;
+    background-color: $formBackgroundColor;
+    border: 5px solid $formBorderColor;
+    border-radius: 15px;
+}

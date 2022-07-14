@@ -1,0 +1,15 @@
+@import './../../variables';
+
+.footer {
+  display: flex;
+  justify-content: center;
+  background-color: $footerColor;
+  color: $textColor;
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100px;
+  }
+}
