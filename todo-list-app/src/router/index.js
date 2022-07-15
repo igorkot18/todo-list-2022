@@ -10,26 +10,26 @@ const routes = [
     children: [
       {
         path: '/',
-        name: 'login-form',
-        component: () => import('../components/mainComponents/loginForm/LoginForm')
+        name: 'login',
+        component: () => import('../components/pages/loginForm/LoginForm.vue')
       },
       {
         path: '/posts',
         name: 'posts',
         meta: {auth: true},
-        component: () => import('../components/mainComponents/posts/PostsComponent')
+        component: () => import('../components/pages/posts/PostsComponent.vue')
       },
       {
         path: '/todos',
         name: 'todos',
         meta: {auth: true},
-        component: () => import('../components/mainComponents/todos/TodosComponent')
+        component: () => import('../components/pages/todos/TodosComponent')
       },
       {
         path: '/users',
         name: 'users',
         meta: {auth: true},
-        component: () => import('../components/mainComponents/users/UsersComponent')
+        component: () => import('../components/pages/users/UsersComponent')
       },
     ]
   }

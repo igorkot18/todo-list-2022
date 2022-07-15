@@ -1,7 +1,7 @@
 <template>
   <footer class='footer'>
       <div class='footer__info'>
-        <span>©2015-2022 Success Craft</span>
+        <span>{{`©2015-${currentYear} Success Craft`}}</span>
       </div>
     </footer>
 </template>
@@ -11,6 +11,10 @@ import './footer.scss';
 
 export default {
   name: 'FooterComponent',
-  components: {}
+  computed: {
+    currentYear() {
+      return new Date().getFullYear()
+    }
+  },
 }
 </script>

@@ -8,7 +8,7 @@
             </div>
             <div class="row d-flex justify-content-center">
                 <div class="col-6">
-                    <form @submit.prevent="handleSubmit">
+                    <form @submit.prevent="handleSubmit(userInfo)">
                         <div class="mb-3 login-form__username">
                             <label 
                                 for="email" 
@@ -22,7 +22,7 @@
                                 id="email" 
                                 placeholder="Email" 
                                 required
-                                v-model="email"
+                                v-model="userInfo.email"
                             >
                         </div>
                         
@@ -39,7 +39,7 @@
                                 id="password" 
                                 placeholder="Password" 
                                 required
-                                v-model="password"
+                                v-model="userInfo.password"
                             >
                         </div>
                         
@@ -52,19 +52,26 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
+
 import './loginForm.scss';
 
   export default {
     name: 'LoginForm',
+    computed: mapGetters(['getLoginData']),
     methods: {
-        handleSubmit() {
-            
+        handleSubmit(userInfo) {
+            this.$store.dispatch('postLoginData', userInfo);
+            this.$router.push('/posts')
         },
     },
     data() {
         return {
-            email: '',
-            password: '',
+            userInfo: {
+                email: '',
+                password: '',
+                isAuth: '',
+            }
         }
     }
   }

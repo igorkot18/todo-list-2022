@@ -9,7 +9,7 @@
 
 <script>
 import './header.scss';
-import NavBar from '../navBar/NavBar.vue';
+import NavBar from '../../navBar/NavBar.vue';
 
 export default {
     name: "HeaderComponent",
