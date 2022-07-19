@@ -5,11 +5,33 @@
         <div class="row">
           <div class="col-4">{{`Name: ${user.name}`}}</div>
           <div class="col-4">{{`Company: ${user.company.name}`}}</div>
-          <b-button class="col-4" v-b-modal=user.id>Show more</b-button>
 
-          <b-modal :id=user.id title="BootstrapVue">
-            <p class="my-4">{{user.name}}</p>
-            <p class="my-4">{{user.email}}</p>
+          <b-button 
+            class="col-4" 
+            @click=showUserInfoById(user.id)
+          >
+            Show more info
+          </b-button>
+          <b-modal v-model="modalShow">
+            <div class="container">
+              <div class="row">
+                <h3 class="col-12">
+                  {{`Name: ${foundUserById.name}`}}
+                </h3>
+                <h4 class="col-12">
+                  {{`Username: ${foundUserById.username}`}}
+                </h4>
+                <h4 class="col-12">
+                  {{`Email: ${foundUserById.email}`}}
+                </h4>
+                <h4 class="col-12">
+                  {{`Phone: ${foundUserById.phone}`}}
+                </h4>
+                <h4 class="col-12">
+                  {{`Website: ${foundUserById.website}`}}
+                </h4>
+              </div>
+            </div>
           </b-modal>
         </div>
       </div>
@@ -23,16 +45,15 @@ import './users.scss';
 
 export default {
   name: 'PostsComponent',
-  computed: {
-    
-  },
   data() {
     return {
       users: [],
+      foundUserById: {},
+      modalShow: false,
     }
   },
   mounted() {
-    this.getUsers(); 
+    this.getUsers();
   },
   methods: {
     async getUsers() {
@@ -44,7 +65,11 @@ export default {
         console.error(error)
         this.errorMessage = error.message
       }
-    },  
+    },
+    showUserInfoById(id) {
+      this.foundUserById = this.users.find(item => item.id === id)
+      this.modalShow = !this.modalShow
+    } 
   },
 }
 </script>

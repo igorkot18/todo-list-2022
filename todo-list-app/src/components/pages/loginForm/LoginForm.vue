@@ -52,25 +52,21 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
+import {mapActions} from 'vuex';
 
 import './loginForm.scss';
 
   export default {
     name: 'LoginForm',
-    computed: mapGetters(['getLoginData']),
-    methods: {
-        handleSubmit(userInfo) {
-            this.$store.dispatch('postLoginData', userInfo);
-            this.$router.push('/posts')
-        },
-    },
+    
+    methods: mapActions({
+        handleSubmit: 'postLoginData'
+    }),
     data() {
         return {
             userInfo: {
                 email: '',
                 password: '',
-                isAuth: '',
             }
         }
     }

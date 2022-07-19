@@ -1,17 +1,22 @@
+import router from "../../router";
+
 export default {
     actions: {
         postLoginData(ctx, userInfo) {
             ctx.commit('updateLoginData', userInfo)
+            router.push('/posts')
         }
     },
     mutations: {
         updateLoginData(state, userInfo) {
-            userInfo.isAuth = true;
-            state.loginData.push(userInfo);
+            state.loginData.isAuth = true;
+            state.loginData.userInfo = userInfo;
         }
     },
     state: {
-        loginData: []
+        loginData: {
+            isAuth: false
+        }
     },
     getters: {
         getLoginData(state) {

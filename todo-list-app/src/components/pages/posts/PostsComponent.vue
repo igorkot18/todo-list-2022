@@ -8,11 +8,6 @@
           placeholder="Write search params" 
           v-model="filterInputText"
         >
-        <b-pagination
-          :total-rows="totalRows" 
-          v-model="currentPage"
-          :per-page="perPage"
-        />
       </div>
       <div
         class="container post-container"
@@ -26,8 +21,13 @@
           <div class="col-12">{{truncate(post.body, 100)}}</div>
         </div>
         
-        <button class="btn btn-success">Read more</button>
+        <button @click="showMoreInfo(post.id)" class="btn btn-success">Read more</button>
       </div>
+      <b-pagination
+          :total-rows="totalRows" 
+          v-model="currentPage"
+          :per-page="perPage"
+        />
     </template>
     <template v-else-if="!posts.length">
       <div class="errorMessage">{{errorMessage}}</div>
@@ -40,7 +40,6 @@
 
 <script>
 const axios = require('axios');
-
 import './posts.scss';
 
 export default {
@@ -89,7 +88,10 @@ export default {
     truncate(str, maxlength) {
       return (str.length > maxlength) ?
         str.slice(0, maxlength - 1) + '…' : str;
-      }
     },
+    showMoreInfo(id) {
+      console.log(id);
+    },
+  },
 }
 </script>

@@ -2,7 +2,9 @@
     <header class='header'>
       <div class='header__info'>
         <span class="header__text">Todo List App</span>
-        <NavBar />
+        <template v-if="getLoginData.isAuth">
+          <NavBar />
+        </template>
       </div>
     </header>
 </template>
@@ -10,9 +12,11 @@
 <script>
 import './header.scss';
 import NavBar from '../../navBar/NavBar.vue';
+import {mapGetters} from 'vuex';
 
 export default {
     name: "HeaderComponent",
-    components: { NavBar }
+    components: { NavBar },
+    computed: mapGetters(['getLoginData']),
 }
 </script>
