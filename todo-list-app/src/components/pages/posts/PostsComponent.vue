@@ -23,8 +23,8 @@
       >
         <div class="row">
           <div class="col-xxl-4">{{post.title}}</div>
-          <div class="col-xxl-6">{{post.id === showId && isShow ? post.body : truncate(post.body, 100)}}</div>
-          <button class="btn btn-warning col-xxl-2" @click="showMoreInfo(post.id)">{{post.id === showId && isShow ? 'Hide' : 'Read more'}}</button>
+          <div class="col-xxl-6">{{truncate(post.body, 100)}}</div>
+          <router-link :to="`/posts/${post.id}`">Read more</router-link>
         </div>
       </div>
       <div class="d-flex justify-content-center mt-2">
@@ -84,8 +84,6 @@ export default {
       currentPage: 1,
       perPage: 4,
       loading: true,
-      isShow: false,
-      showId: '',
     }
   },
   mounted() {
@@ -107,10 +105,6 @@ export default {
     truncate(str, maxlength) {
       return (str.length > maxlength) ?
         str.slice(0, maxlength - 1) + '…' : str;
-    },
-    showMoreInfo(id) {
-      this.showId = id;
-      this.isShow = !this.isShow;
     },
   },
 }

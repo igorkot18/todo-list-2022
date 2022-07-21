@@ -19,7 +19,14 @@ const routes = [
         path: '/posts',
         name: 'posts',
         meta: { auth: true },
-        component: () => import('../components/pages/posts/PostsComponent.vue')
+        props: true,
+        component: () => import('../components/pages/posts/PostsComponent.vue'),
+      },
+      {
+        path: '/posts/:id',
+        meta: { auth: true },
+        props: true,
+        component: () => import('../components/pages/posts/PostPage.vue')
       },
       {
         path: '/todos',
