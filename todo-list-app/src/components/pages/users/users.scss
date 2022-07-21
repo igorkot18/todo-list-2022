@@ -1,5 +1,14 @@
+@import '../../../variables';
+
 .user-card {
-    border: 3px solid green;
+    border: 3px solid $borderColor;
+    border-radius: 8px;
+    background-color: $mainColor;
+    font-size: larger;
     padding: 10px;
     margin: 4px auto;
 }
+
+.modal-backdrop {
+    background-color:rgba(192,192,192,0.3);
+  }

@@ -7,7 +7,7 @@
                 </div>
             </div>
             <div class="row d-flex justify-content-center">
-                <div class="col-6">
+                <div class="col-9">
                     <form @submit.prevent="handleSubmit(userInfo)">
                         <div class="mb-3 login-form__username">
                             <label 
@@ -43,7 +43,7 @@
                             >
                         </div>
                         
-                        <button type="submit" class="btn btn-outline-success w-100">Login</button>
+                        <button type="submit" class="btn btn-outline-primary w-100">Login</button>
                     </form>
                 </div>
             </div>

@@ -1,37 +1,45 @@
 <template>
   <section class="post">
-    <template v-if="posts.length">
-      <div class="container d-flex justify-content-between">
+    <template v-if="loading">
+      <div class="container d-flex justify-content-center mt-5">
+        <LoaderComponent />
+      </div>
+    </template>
+    
+    <template v-else-if="posts.length">
+      <div class="d-flex justify-content-center">
         <input
+          class="post__input container"
           type="text" 
           id="filterInput"
-          placeholder="Write search params" 
+          placeholder="Write search params"
           v-model="filterInputText"
         >
       </div>
       <div
-        class="container post-container"
+        class="container post__container"
         v-for="post in lists"
         :key="post.id"
       >
         <div class="row">
-          <div class="col-12">{{post.title}}</div>
+          <div class="col-xxl-4">{{post.title}}</div>
+          <div class="col-xxl-6">{{post.id === showId && isShow ? post.body : truncate(post.body, 100)}}</div>
+          <button class="btn btn-warning col-xxl-2" @click="showMoreInfo(post.id)">{{post.id === showId && isShow ? 'Hide' : 'Read more'}}</button>
         </div>
-        <div class="row">
-          <div class="col-12">{{truncate(post.body, 100)}}</div>
-        </div>
-        
-        <button @click="showMoreInfo(post.id)" class="btn btn-success">Read more</button>
       </div>
-      <b-pagination
+      <div class="d-flex justify-content-center mt-2">
+        <b-pagination
           :total-rows="totalRows" 
           v-model="currentPage"
           :per-page="perPage"
-        />
+        /> 
+      </div>
     </template>
+
     <template v-else-if="!posts.length">
       <div class="errorMessage">{{errorMessage}}</div>
     </template>
+
     <template v-else>
       <div class="errorMessage">No posts</div>
     </template>
@@ -39,11 +47,17 @@
 </template>
 
 <script>
+import LoaderComponent from '../../loader/LoaderComponent.vue';
+
 const axios = require('axios');
+
 import './posts.scss';
 
 export default {
   name: 'PostsComponent',
+  components: {
+    LoaderComponent,
+  },
   computed: {
     filteredPosts() {
       if (!this.filterInputText) {
@@ -69,6 +83,9 @@ export default {
       errorMessage: '',
       currentPage: 1,
       perPage: 4,
+      loading: true,
+      isShow: false,
+      showId: '',
     }
   },
   mounted() {
@@ -80,9 +97,11 @@ export default {
         const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
         const data = await response.data;
         this.posts = data;
+        this.loading = false;
       } catch(error) {
         console.error(error)
         this.errorMessage = error.message
+        this.loading = false;
       }
     },
     truncate(str, maxlength) {
@@ -90,7 +109,8 @@ export default {
         str.slice(0, maxlength - 1) + '…' : str;
     },
     showMoreInfo(id) {
-      console.log(id);
+      this.showId = id;
+      this.isShow = !this.isShow;
     },
   },
 }

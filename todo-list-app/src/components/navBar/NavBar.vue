@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
+        <div>
             <button 
                 class="navbar-toggler" 
                 type="button" 
@@ -25,13 +25,11 @@
                     </ul>
                 </div>
             </template>
-            <template v-else>{{navBarData}}</template>
         </div>
     </nav>
 </template>
 
 <script>
-
 export default {
     name: 'NavBar',
     data: () => ({

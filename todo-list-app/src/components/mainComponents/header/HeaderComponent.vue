@@ -1,7 +1,7 @@
 <template>
     <header class='header'>
-      <div class='header__info'>
-        <span class="header__text">Todo List App</span>
+      <div class='d-flex justify-content-between w100'>
+        <span class="header__nav-bar">Todo List App</span>
         <template v-if="getLoginData.isAuth">
           <NavBar />
         </template>

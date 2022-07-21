@@ -2,19 +2,13 @@
 
 .header {
   width: 100%;
+  padding: 20px;
   background-color: $headerColor;
   color: $textColor;
   border-bottom: 4px solid $textColor;
 
-  &__info {
-    display: flex;
-    justify-content: space-around;
-    height: 120px;
-  }
-
-  &__text {
-    display: flex;
-    align-items: center;
+  &__nav-bar {
     font-size: 40px;
+    margin-left: 40px;
   }
 }
