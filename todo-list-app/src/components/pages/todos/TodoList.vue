@@ -1,10 +1,16 @@
 <template>
     <div>
         <template>
-            <AddTodo @add-todo="addTodo"/>
+            <div class="container d-flex justify-content-center mt-1">
+                <h1>Todos</h1>
+            </div>
             <div class="container mb-2">
-                <div class="row px-2">
-                    <select class="col-xxl-4 todos__select" v-model="filter">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <AddTodo @add-todo="addTodo"/>
+                    </div>
+                    <b-button @click="deleteAll" class="col-lg-3 col-sm-3" variant="danger">Delete All</b-button> 
+                    <select class="col-lg-3 todos__select" v-model="filter">
                         <option value="all">All</option>
                         <option value="completed">Completed</option>
                         <option value="not-completed">Not completed</option>
@@ -26,14 +32,11 @@
                     :key="todo.id" 
                     class="row p-2 todos-list__item"
                 >
-                    <span class="col-xxl-10 d-flex justify-content-left" v-bind:class="{done: todo.completed}">
+                    <span class="col-lg-10 d-flex justify-content-left" v-bind:class="{done: todo.completed}">
                         <input class="m-2" type="checkbox" v-on:change="todo.completed = !todo.completed"/>
                         <div class="m-2">{{todo.title | uppercase}}</div>
                     </span>
-                    <b-button @click="removeTodo(todo.id)" class="col-xxl-2" variant="outline-danger">Delete</b-button>
-                </div>
-                <div class="row justify-content-end p-1">
-                    <b-button @click="deleteAll" class="col-xxl-2 col-sm-4" variant="danger">Delete All</b-button> 
+                    <b-button @click="removeTodo(todo.id)" class="col-lg-2" variant="outline-danger">Delete</b-button>
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-2">

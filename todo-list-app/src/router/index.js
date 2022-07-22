@@ -23,7 +23,7 @@ const routes = [
         component: () => import('../components/pages/posts/PostsComponent.vue'),
       },
       {
-        path: '/posts/:id',
+        path: '/post/:id',
         meta: { auth: true },
         props: true,
         component: () => import('../components/pages/posts/PostPage.vue')

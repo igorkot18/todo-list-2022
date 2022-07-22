@@ -7,11 +7,14 @@
     </template>
 
     <template v-else-if="users.length">
+      <div class="container d-flex justify-content-center mt-1">
+        <h1>Users</h1>
+      </div>
       <div class="container user-card" v-for="user in users" :key="user.id">
         <div class="row">
-          <div class="col-xxl-4">{{`Name: ${user.name}`}}</div>
-          <div class="col-xxl-5">{{`Company: ${user.company.name}`}}</div>
-          <div class="col-xxl-3" >
+          <div class="col-lg-4">{{`Name: ${user.name}`}}</div>
+          <div class="col-lg-5">{{`Company: ${user.company.name}`}}</div>
+          <div class="col-lg-3" >
             <b-button @click=showUserInfoById(user.id) class="w-100" variant="info">Show more info</b-button>
             <b-modal v-model="modalShow">
               <div class="container modal-block">

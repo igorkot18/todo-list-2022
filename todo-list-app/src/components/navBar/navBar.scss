@@ -1,0 +1,12 @@
+.navbar-light .navbar-nav .nav-link {
+    color: white;
+    font-size: larger;
+
+    &.router-link-exact-active .router-link-active {
+        color: red;
+    }
+}
+
+li .nav-item {
+    color: rebeccapurple;
+}

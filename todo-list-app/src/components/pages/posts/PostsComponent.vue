@@ -5,8 +5,11 @@
         <LoaderComponent />
       </div>
     </template>
-    
+
     <template v-else-if="posts.length">
+      <div class="container d-flex justify-content-center mt-1">
+        <h1>Posts</h1>
+      </div>
       <div class="d-flex justify-content-center">
         <input
           class="post__input container"
@@ -22,9 +25,9 @@
         :key="post.id"
       >
         <div class="row">
-          <div class="col-xxl-4">{{post.title}}</div>
-          <div class="col-xxl-6">{{truncate(post.body, 100)}}</div>
-          <router-link :to="`/posts/${post.id}`">Read more</router-link>
+          <div class="col-lg-4"><h2>{{post.title}}</h2></div>
+          <div class="col-lg-6"><p>{{truncate(post.body, 100)}}</p></div>
+          <router-link :to="`/post/${post.id}`">Read more</router-link>
         </div>
       </div>
       <div class="d-flex justify-content-center mt-2">
@@ -41,7 +44,7 @@
     </template>
 
     <template v-else>
-      <div class="errorMessage">No posts</div>
+      <div class="errorMessage"><p>No posts</p></div>
     </template>
   </section>
 </template>

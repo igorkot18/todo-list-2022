@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import './navBar.scss';
+
 export default {
     name: 'NavBar',
     data: () => ({

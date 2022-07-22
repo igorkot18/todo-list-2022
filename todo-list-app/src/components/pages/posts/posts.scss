@@ -45,7 +45,6 @@
 
     &__table {
         padding: 30px;
-        font-size: 25px;
     }
 
     &__item {
@@ -57,5 +56,15 @@
         &:nth-child(odd) {
             color: $borderColor;
         }
+    }
+}
+
+a {
+    color: $secondTextColor;
+    text-decoration: none;
+
+    &:hover {
+        color: red;
+        text-decoration: none;
     }
 }
