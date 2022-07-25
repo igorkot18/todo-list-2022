@@ -10,14 +10,40 @@
       <div class="container d-flex justify-content-center mt-1">
         <h1>Users</h1>
       </div>
-      <div class="container user-card" v-for="user in users" :key="user.id">
-        <div class="row">
-          <div class="col-lg-4">{{`Name: ${user.name}`}}</div>
-          <div class="col-lg-5">{{`Company: ${user.company.name}`}}</div>
-          <div class="col-lg-3" >
-            <b-button @click=showUserInfoById(user.id) class="w-100" variant="info">Show more info</b-button>
-            <b-modal v-model="modalShow">
-              <div class="container modal-block">
+
+      <div class="d-flex justify-content-center container p-0">
+        <div class="input-group p-0">
+          <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+          </div>
+          <input 
+            v-model="filterInputText"
+            type="text" 
+            class="form-control" 
+            placeholder="Enter username or company..." 
+            aria-label="Username" 
+            aria-describedby="basic-addon1"
+          >
+        </div>
+      </div>
+
+      <table class="container table table-hover table-striped table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">№</th>
+            <th scope="col">Name</th>
+            <th scope="col">Company</th>
+            <th scope="col">Show more</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(user, index) in paginatedUsers" :key="user.id">
+            <th scope="row">{{index + 1}}</th>
+            <td>{{user.name}}</td>
+            <td>{{user.company.name}}</td>
+            <td><i class="bi bi-aspect-ratio" @click=showUserInfoById(user.id)></i></td>
+            <b-modal centered v-model="isModalShow">
+              <div class="container">
                 <div class="row">
                   <h3 class="col-12">
                     {{`Name: ${foundUserById.name}`}}
@@ -37,12 +63,20 @@
                 </div>
               </div>
             </b-modal>
-          </div>
-        </div>
-      </div>
-    </template>
+          </tr>
+        </tbody>
 
-    <template v-else><p>No users</p></template>
+      </table>
+
+      <div class="d-flex justify-content-center mt-2">
+        <b-pagination
+          :total-rows="totalRows" 
+          v-model="currentPage"
+          :per-page="perPage"
+        />
+      </div>
+
+    </template>
   </section>
 </template>
 
@@ -60,14 +94,35 @@ export default {
   },
   data() {
     return {
+      filterInputText: '',
       users: [],
       foundUserById: {},
-      modalShow: false,
+      isModalShow: false,
       loading: true,
+      currentPage: 1,
+      perPage: 10,
     }
   },
   mounted() {
     this.getUsers();
+  },
+  computed: {
+    filteredUsers() {
+      if (!this.filterInputText) {
+        return this.users
+      } else {
+        return this.users.filter(item => item.name.includes(this.filterInputText) || item.company.name.includes(this.filterInputText))
+      }
+    },
+    paginatedUsers () {
+      return this.filteredUsers.slice(
+        (this.currentPage - 1) * this.perPage,
+        this.currentPage * this.perPage
+      )
+    },
+    totalRows () {
+        return this.filteredUsers.length
+    }
   },
   methods: {
     async getUsers() {
@@ -84,7 +139,7 @@ export default {
     },
     showUserInfoById(id) {
       this.foundUserById = this.users.find(item => item.id === id)
-      this.modalShow = !this.modalShow
+      this.isModalShow = !this.isModalShow
     } 
   },
 }

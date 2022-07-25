@@ -3,13 +3,11 @@
 .todos {
 
     &-list {
-        border: 5px solid $borderColor;
         border-radius: 15px;
         background-color: $mainColor;
 
         &__item {
             margin: 4px;
-            border-bottom: 2px solid $borderColor;
 
             &:last-child {
                 border: none;
@@ -19,13 +17,10 @@
 
     &__input {
         background-color: $mainColor;
-        border: 3px solid $borderColor;
-        padding: 10px 5px;
     }
 
     &__select {
         background-color: $mainColor;
-        border: 3px solid $borderColor;
         padding: 5px 0;
     }
 

@@ -1,13 +1,17 @@
 <template>
-    <div class="login-form-page">
+    <section class="login-form-page">
         <div class="container login-form">
-            <div class="row">
-                <div class="col-12 d-flex justify-content-center login-form__title">
-                    <h1>Login</h1>
-                </div>
-            </div>
             <div class="row d-flex justify-content-center">
-                <div class="col-9">
+                <div class="col-6 login-form__info">
+                    <h4>Create new task</h4>
+                    <h4>Look for new users</h4>
+                    <h4>View posts</h4>
+                </div>
+                
+                <div class="col-6 login-form__data">
+                    <div class="d-flex justify-content-center login-form__title">
+                        <h1>Welcome back</h1>
+                    </div>
                     <form @submit.prevent="handleSubmit(userInfo)">
                         <div class="mb-3 login-form__username">
                             <label 
@@ -40,15 +44,16 @@
                                 placeholder="Password" 
                                 required
                                 v-model="userInfo.password"
+                                @change="showToast"
                             >
                         </div>
                         
-                        <button type="submit" class="btn btn-outline-primary w-100">Login</button>
+                        <button type="submit" :disabled="isBtnDisabled" class="btn btn-outline-primary w-100">Login</button>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -58,16 +63,30 @@ import './loginForm.scss';
 
   export default {
     name: 'LoginForm',
-    
-    methods: mapActions({
-        handleSubmit: 'postLoginData'
-    }),
+    methods: {
+        ...mapActions({
+            handleSubmit: 'postLoginData'
+        }),
+        showToast() {
+            if (this.userInfo.password.length && this.userInfo.password.length < 8) {
+              this.$toastr.e("Password must contain at least 8 characters");
+            }
+            if (!/[a-zа-яё]/i.test(this.userInfo.password))  {
+                this.$toastr.e("Password must contain at least 1 letter");
+            }
+            if (this.userInfo.password.length > 8 && /[a-zа-яё]/i.test(this.userInfo.password)) {
+               this.$toastr.s("Password is valid");
+               this.isBtnDisabled = false;
+            }
+        }
+    },
     data() {
         return {
             userInfo: {
                 email: '',
                 password: '',
-            }
+            },
+            isBtnDisabled: true,
         }
     }
   }

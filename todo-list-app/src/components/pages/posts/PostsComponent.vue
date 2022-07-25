@@ -10,14 +10,21 @@
       <div class="container d-flex justify-content-center mt-1">
         <h1>Posts</h1>
       </div>
-      <div class="d-flex justify-content-center">
-        <input
-          class="post__input container"
-          type="text" 
-          id="filterInput"
-          placeholder="Write search params"
-          v-model="filterInputText"
-        >
+
+      <div class="d-flex justify-content-center container p-0">
+        <div class="input-group p-0">
+          <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+          </div>
+          <input 
+            v-model="filterInputText"
+            type="text" 
+            class="form-control" 
+            placeholder="Enter username or company..." 
+            aria-label="Username" 
+            aria-describedby="basic-addon1"
+          >
+        </div>
       </div>
       <div
         class="container post__container"
@@ -85,7 +92,7 @@ export default {
       posts: [],
       errorMessage: '',
       currentPage: 1,
-      perPage: 4,
+      perPage: 3,
       loading: true,
     }
   },

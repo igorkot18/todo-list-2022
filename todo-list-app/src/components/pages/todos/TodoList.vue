@@ -1,24 +1,5 @@
 <template>
     <div>
-        <template>
-            <div class="container d-flex justify-content-center mt-1">
-                <h1>Todos</h1>
-            </div>
-            <div class="container mb-2">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <AddTodo @add-todo="addTodo"/>
-                    </div>
-                    <b-button @click="deleteAll" class="col-lg-3 col-sm-3" variant="danger">Delete All</b-button> 
-                    <select class="col-lg-3 todos__select" v-model="filter">
-                        <option value="all">All</option>
-                        <option value="completed">Completed</option>
-                        <option value="not-completed">Not completed</option>
-                    </select>
-                </div>
-            </div>
-        </template>
-
         <template v-if="loading">
             <div class="container d-flex justify-content-center mt-5">
                 <LoaderComponent />
@@ -26,27 +7,81 @@
         </template>
 
         <template v-else-if="paginatedTodos.length">
-            <div class="container todos-list">
-                <div
-                    v-for="todo in paginatedTodos"
-                    :key="todo.id" 
-                    class="row p-2 todos-list__item"
-                >
-                    <span class="col-lg-10 d-flex justify-content-left" v-bind:class="{done: todo.completed}">
-                        <input class="m-2" type="checkbox" v-on:change="todo.completed = !todo.completed"/>
-                        <div class="m-2">{{todo.title | uppercase}}</div>
-                    </span>
-                    <b-button @click="removeTodo(todo.id)" class="col-lg-2" variant="outline-danger">Delete</b-button>
+            <div class="container d-flex justify-content-center">
+                <h1>Todos</h1>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="input-group p-0">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+                        </div>
+                        <input 
+                            v-model="postsFoundValue"
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Find todo..." 
+                            aria-label="Username" 
+                            aria-describedby="basic-addon1"
+                        >
+
+                        <select v-model="filter" class="custom-select" id="inputGroupSelect04">
+                            <option value="all">All</option>
+                            <option value="completed">Completed</option>
+                            <option value="not-completed">Not completed</option>
+                        </select>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" @click=showModalWindow>Create todo</button>
+                            <button class="btn btn-outline-secondary" type="button" @click="deleteAll">Delete all</button>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <table class="container table table-hover table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="todo in paginatedTodos" :key="todo.id">
+                        <td class="col-1"><input type="checkbox" v-on:change="todo.completed = !todo.completed"/></td>
+                        <td class="col-10"><span v-bind:class="{done: todo.completed}">{{todo.title}}</span></td>
+                        <td class="col-1"><i @click="removeTodo(todo.id)" class="col-2 bi bi-trash"></i></td>
+                    </tr>
+                </tbody>
+            </table>
             <div class="d-flex justify-content-center mt-2">
-               <b-pagination
+                <b-pagination
                     :total-rows="totalRows" 
                     v-model="currentPage"
                     :per-page="perPage"
-                /> 
+                />
             </div>
-            
+            <b-modal centered v-model="isModalShow">
+                <template #modal-title>
+                    <p>Create new task</p>
+                </template>
+              <div class="container modal-block">
+                <form @submit.prevent="onSubmit" class="row">
+                    <div class="input-group mb-3">
+                        <input
+                            type="text" 
+                            v-model="title" 
+                            class="form-control" 
+                            placeholder="Enter task..." 
+                            aria-label="Recipient's username" 
+                            aria-describedby="basic-addon2"
+                        />
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit">Create</button>
+                        </div>
+                    </div>
+                </form>
+              </div>
+            </b-modal>
         </template>
 
         <template v-else><div class="todos__no-todos"><p>No todos</p></div></template>
@@ -54,7 +89,6 @@
 </template>
 
 <script>
-import AddTodo from './AddTodo.vue';
 import LoaderComponent from '../../loader/LoaderComponent.vue';
 
 const axios = require('axios');
@@ -64,16 +98,18 @@ import './Todo.scss';
 export default {
     name: "TodoList",
     components: {
-        AddTodo,
         LoaderComponent,
     },
     data() {
         return {
+            postsFoundValue: '',
             todos: [],
             loading: true,
             filter: "all",
             currentPage: 1,
             perPage: 10,
+            isModalShow: false,
+            title: '',
         };
     },
     mounted() {
@@ -89,22 +125,26 @@ export default {
                 return this.todos.filter(item => !item.completed)
             } else return false
         },
+        foundPosts() {
+            if (!this.postsFoundValue) {
+                return this.filteredTodos
+            } else {
+                return this.filteredTodos.filter(item => item.title.includes(this.postsFoundValue))
+            }
+        },
         paginatedTodos () {
-            return this.filteredTodos.slice(
+            return this.foundPosts.slice(
                 (this.currentPage - 1) * this.perPage,
                 this.currentPage * this.perPage
             )
         },
         totalRows () {
-            return this.filteredTodos.length
+            return this.foundPosts.length
         }
     },
     methods: {
         removeTodo(id) {
             this.todos = this.todos.filter(item => item.id !== id);
-        },
-        addTodo(newTodo) {
-            this.todos.push(newTodo);
         },
         deleteAll() {
             this.todos = []
@@ -121,6 +161,21 @@ export default {
                 this.loading = false;
             }
         },
+        showModalWindow() {
+            this.isModalShow = !this.isModalShow
+        },
+        onSubmit() {
+            if (this.title.trim().toLowerCase()) {
+                const newTodo = {
+                    id: Date.now(),
+                    title: this.title,
+                    completed: false,
+                }
+
+                this.todos.unshift(newTodo);
+                this.title = '';
+            }
+        }
     },
     filters: {
         uppercase(value) {
