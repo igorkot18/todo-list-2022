@@ -24,8 +24,6 @@ export default {
 <style>
   #root {
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    background: url(../images/image.svg) no-repeat;
-    background-size: 100% 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;

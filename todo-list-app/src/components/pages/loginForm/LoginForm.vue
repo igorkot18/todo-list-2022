@@ -1,18 +1,12 @@
 <template>
     <section class="login-form-page">
         <div class="container login-form">
-            <div class="row d-flex justify-content-center">
-                <div class="col-6 login-form__info">
-                    <h4>Create new task</h4>
-                    <h4>Look for new users</h4>
-                    <h4>View posts</h4>
-                </div>
-                
-                <div class="col-6 login-form__data">
-                    <div class="d-flex justify-content-center login-form__title">
+            <div class="row d-flex justify-content-end">
+                <div class="col-lg-6 d-flex align-items-center login-form__data">
+                    <div class="col-sm-6 d-flex justify-content-center login-form__title">
                         <h1>Welcome back</h1>
                     </div>
-                    <form @submit.prevent="handleSubmit(userInfo)">
+                    <form class="col-sm-6" @submit.prevent="handleSubmit(userInfo)">
                         <div class="mb-3 login-form__username">
                             <label 
                                 for="email" 
@@ -44,11 +38,10 @@
                                 placeholder="Password" 
                                 required
                                 v-model="userInfo.password"
-                                @change="showToast"
                             >
                         </div>
                         
-                        <button type="submit" :disabled="isBtnDisabled" class="btn btn-outline-primary w-100">Login</button>
+                        <button type="submit" :disabled="isBtnDisabled" @click="showToast" class="btn btn-outline-primary w-100">Login</button>
                     </form>
                 </div>
             </div>
@@ -76,7 +69,6 @@ import './loginForm.scss';
             }
             if (this.userInfo.password.length > 8 && /[a-zа-яё]/i.test(this.userInfo.password)) {
                this.$toastr.s("Password is valid");
-               this.isBtnDisabled = false;
             }
         }
     },
@@ -86,7 +78,7 @@ import './loginForm.scss';
                 email: '',
                 password: '',
             },
-            isBtnDisabled: true,
+            isBtnDisabled: false,
         }
     }
   }

@@ -7,13 +7,14 @@
       </template>
 
       <template v-else>
-        <div class="container d-flex justify-content-center mt-1">
-          <h1>Post</h1>
+        <div class="row">
+          <div class="col-lg-8 post-page__table">
+            <div><h1>{{post.title}}</h1></div>
+            <div><p>{{post.body}}</p></div>
+          </div>
+          <div class="col-lg-4"><img class="post-page__image" src='../../../images/lionel-messi.jpg'/></div>
         </div>
-        <div class="row post-page__table">
-          <div class="col-lg-12 post-page__item"><h1>{{post.title}}</h1></div>
-          <div class="col-lg-12 post-page__item"><p>{{post.body}}</p></div>
-        </div>
+        
       </template>
         
     </section>

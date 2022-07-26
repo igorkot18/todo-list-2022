@@ -1,37 +1,41 @@
 @import '../../../variables';
 
-.todos {
-
-    &-list {
-        border-radius: 15px;
-        background-color: $mainColor;
-
-        &__item {
-            margin: 4px;
-
-            &:last-child {
-                border: none;
-            }
-        }
+.todo {
+    &__title {
+        color: $textColor;
     }
 
-    &__input {
-        background-color: $mainColor;
+    &__description::first-letter {
+        text-transform: uppercase;
     }
 
-    &__select {
-        background-color: $mainColor;
-        padding: 5px 0;
+    &__button {
+        cursor: pointer;
+    }
+
+    &__pagination, &__table {
+        box-shadow: 10px 7px 10px $formShadow;
     }
 
     &__no-todos {
         display: flex;
         justify-content: center;
-        color: $secondTextColor;
-        font-size: 60px;
+        font-size: 50px;
+        color: $mainColor;
+        text-shadow: 5px 2px 8px $formShadow;
     }
 }
-    
+
+.pagination .page-link {
+    color: $thirdTextColor;
+    font-size: larger;
+}
+
+.pagination .page-item.active .page-link {
+    color: $textColor;
+    background-color: $secondTextColor;
+}
+
 .done {
     text-decoration: line-through;
 }

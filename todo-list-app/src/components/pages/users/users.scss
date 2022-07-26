@@ -1,11 +1,27 @@
 @import '../../../variables';
 
-.user-card {
-    border-radius: 8px;
-    background-color: $mainColor;
+.users {
+    &__pagination, &__table {
+        box-shadow: 5px 7px 5px $formShadow;
+    }
+
+    &__title {
+        color: $textColor;
+    }
+
+    &__button {
+        cursor: pointer;
+    }
+}
+
+.pagination .page-link {
+    color: $thirdTextColor;
     font-size: larger;
-    padding: 10px;
-    margin: 4px auto;
+}
+
+.pagination .page-item.active .page-link {
+    color: $textColor;
+    background-color: $secondTextColor;
 }
 
 .modal-backdrop {

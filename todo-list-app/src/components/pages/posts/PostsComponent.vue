@@ -7,7 +7,7 @@
     </template>
 
     <template v-else-if="posts.length">
-      <div class="container d-flex justify-content-center mt-1">
+      <div class="container d-flex justify-content-center mb-3 post__title">
         <h1>Posts</h1>
       </div>
 
@@ -26,17 +26,28 @@
           >
         </div>
       </div>
-      <div
-        class="container post__container"
-        v-for="post in lists"
-        :key="post.id"
-      >
+
+      <div class="container post__container">
         <div class="row">
-          <div class="col-lg-4"><h2>{{post.title}}</h2></div>
-          <div class="col-lg-6"><p>{{truncate(post.body, 100)}}</p></div>
-          <router-link :to="`/post/${post.id}`">Read more</router-link>
+          <div 
+            v-for="post in lists"
+            :key="post.id" 
+            class="d-flex col-lg-6"
+          >
+            <div class="col-lg-12 post__content">
+              <div class="d-flex">
+                <div class="post__image col-6"></div>
+                <div class="col-6">
+                  <div><h2>{{post.title}}</h2></div>
+                  <div><p>{{truncate(post.body, 100)}}</p></div>
+                </div>
+              </div>
+              <router-link :to="`/post/${post.id}`">Read more..</router-link>
+            </div>
+          </div>
         </div>
       </div>
+
       <div class="d-flex justify-content-center mt-2">
         <b-pagination
           :total-rows="totalRows" 
@@ -92,8 +103,9 @@ export default {
       posts: [],
       errorMessage: '',
       currentPage: 1,
-      perPage: 3,
+      perPage: 2,
       loading: true,
+
     }
   },
   mounted() {

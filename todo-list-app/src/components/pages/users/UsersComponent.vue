@@ -7,7 +7,7 @@
     </template>
 
     <template v-else-if="users.length">
-      <div class="container d-flex justify-content-center mt-1">
+      <div class="container d-flex justify-content-center mt-1 users__title">
         <h1>Users</h1>
       </div>
 
@@ -19,7 +19,7 @@
           <input 
             v-model="filterInputText"
             type="text" 
-            class="form-control" 
+            class="form-control users__input" 
             placeholder="Enter username or company..." 
             aria-label="Username" 
             aria-describedby="basic-addon1"
@@ -27,27 +27,27 @@
         </div>
       </div>
 
-      <table class="container table table-hover table-striped table-bordered">
+      <table class="container table table-hover table-striped table-light table-bordered users__table">
         <thead class="table-dark">
           <tr>
             <th scope="col">№</th>
             <th scope="col">Name</th>
             <th scope="col">Company</th>
-            <th scope="col">Show more</th>
+            <th scope="col">More</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(user, index) in paginatedUsers" :key="user.id">
-            <th scope="row">{{index + 1}}</th>
-            <td>{{user.name}}</td>
-            <td>{{user.company.name}}</td>
-            <td><i class="bi bi-aspect-ratio" @click=showUserInfoById(user.id)></i></td>
+            <td class="col-1">{{index + 1}}</td>
+            <td class="col-5">{{user.name}}</td>
+            <td class="col-5">{{user.company.name}}</td>
+            <td><i class="col-1 users__button bi bi-aspect-ratio" @click=showUserInfoById(user.id)></i></td>
             <b-modal centered v-model="isModalShow">
+              <template #modal-title>
+                {{`Name: ${foundUserById.name}`}}
+              </template>
               <div class="container">
                 <div class="row">
-                  <h3 class="col-12">
-                    {{`Name: ${foundUserById.name}`}}
-                  </h3>
                   <h4 class="col-12">
                     {{`Username: ${foundUserById.username}`}}
                   </h4>
@@ -55,7 +55,7 @@
                     {{`Email: ${foundUserById.email}`}}
                   </h4>
                   <h4 class="col-12">
-                    {{`Phone: ${foundUserById.phone}`}}
+                    Phone: <a>{{foundUserById.phone}}</a>
                   </h4>
                   <h4 class="col-12">
                     {{`Website: ${foundUserById.website}`}}
@@ -70,6 +70,7 @@
 
       <div class="d-flex justify-content-center mt-2">
         <b-pagination
+          class="users__pagination"
           :total-rows="totalRows" 
           v-model="currentPage"
           :per-page="perPage"

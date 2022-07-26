@@ -1,12 +1,6 @@
+@import '../../variables';
+
 .navbar-light .navbar-nav .nav-link {
-    color: white;
+    color: $secondTextColor;
     font-size: larger;
-
-    &.router-link-exact-active .router-link-active {
-        color: red;
-    }
-}
-
-li .nav-item {
-    color: rebeccapurple;
 }

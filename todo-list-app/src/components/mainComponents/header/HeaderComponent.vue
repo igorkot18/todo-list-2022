@@ -1,10 +1,14 @@
 <template>
     <header class='header'>
-      <div class='d-flex justify-content-between w100'>
-        <span class="header__nav-bar">Todo List App</span>
+      <div class='d-flex justify-content-between w100 header__content'>
+        <img class="header__logo" src="../../../images/logo.png">
         <template v-if="getLoginData.isAuth">
+        <div class="d-flex header__nav">
           <NavBar />
-          <b-button @click=logoutClick() variant="warning">Log out</b-button>
+            <div class="d-flex align-items-center">
+              <button @click=logoutClick type="button" class="btn btn-outline-dark">Log out</button>
+            </div>
+          </div>
         </template>
       </div>
     </header>

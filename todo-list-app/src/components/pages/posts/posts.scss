@@ -1,33 +1,57 @@
 @import '../../../variables';
 
 .post {
-    
-    &__input {
-        background-color: $mainColor;
-        padding: 5px;
-        width: 100%; 
-    }
-    
     &__container {
-        background-color: $mainColor;
+        background: url(../../../images/background.svg) no-repeat;
+        background-size: 100%;
+        box-shadow: 5px 2px 8px $formShadow;
         border-radius: 10px;
-        margin: 20px auto;
+        margin: 10px auto;
         padding: 20px;
-        font-size: larger;
-        font-family:Arial, Helvetica, sans-serif;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        
+        & > div > div > h2::first-letter {
+            text-transform: uppercase;
+        }
+
+        & > div > div > p::first-letter {
+            text-transform: uppercase;
+        }
+    }
+
+    &__pagination {
+        box-shadow: 10px -7px 10px $formShadow;
+    }
+
+    &__title {
+        color: $textColor;
+    }
+
+    &__image {
+        width: 200px;
+        height: 250px;
+        background-image: url(../../../images/queen-elizabeth-.jpg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
     }
 }
 
 
 .errorMessage {
-    color: $secondTextColor;
+    color: $thirdTextColor;
     font-size: 50px;
     display: flex;
     justify-content: center;
 }
 
 .pagination .page-link {
-    color: $secondTextColor;
+    color: $thirdTextColor;
     font-size: larger;
 }
 
@@ -37,22 +61,33 @@
 }
 
 .post-page {
+    background: url(../../../images/background.svg) no-repeat;
     background-color: $mainColor;
     padding: 30px;
+    border-radius: 15px;
+    box-shadow: 5px 2px 8px $formShadow;
 
     &__table {
         padding: 30px;
+
+        & h1::first-letter {
+            text-transform: uppercase;
+        }
+
+        & p::first-letter {
+            text-transform: uppercase;
+        }
     }
 
-    &__item {
-        &:nth-child(even) {
-            margin-bottom: 20px;
-        }
+    &__image {
+        width: 280px;
+        height: 400px;
     }
 }
 
 a {
-    color: $secondTextColor;
+    font-size: large;
+    color: $textColor;
     text-decoration: none;
 
     &:hover {
