@@ -38,8 +38,8 @@
               <div class="d-flex">
                 <div class="post__image col-6"></div>
                 <div class="col-6">
-                  <div><h2>{{post.title}}</h2></div>
-                  <div><p>{{truncate(post.body, 100)}}</p></div>
+                  <div><h2 class="post__content-title">{{post.title}}</h2></div>
+                  <div><p class="post__content-description">{{truncate(post.body, 100)}}</p></div>
                 </div>
               </div>
               <router-link :to="`/post/${post.id}`">Read more..</router-link>

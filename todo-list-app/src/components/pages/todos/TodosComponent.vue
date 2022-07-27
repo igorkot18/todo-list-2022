@@ -155,13 +155,14 @@ export default {
         },
         deleteAll() {
             this.todos = []
-            this.$toastr.w("All todos was deleted");
+            this.$toastr.i("All todos was deleted");
         },
         async getTodos() {
             try {
                 const response = await axios.get("https://jsonplaceholder.typicode.com/todos");
-                const data = await response.data;
-                this.todos = data;
+                if (response.data) {
+                    this.todos = response.data;
+                }
                 this.loading = false;
             }
             catch (error) {

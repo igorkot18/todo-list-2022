@@ -3,4 +3,13 @@
 .navbar-light .navbar-nav .nav-link {
     color: $secondTextColor;
     font-size: larger;
+
+    &.router-link-exact-active {
+        color: $fourthTextColor;
+    }
+
+    &.router-link-active {
+        color: $fourthTextColor;
+    }
 }
+
