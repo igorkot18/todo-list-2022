@@ -6,7 +6,7 @@
                     <div class="col-sm-6 d-flex justify-content-center login-form__title">
                         <h1>Welcome back</h1>
                     </div>
-                    <form class="col-sm-6" @submit.prevent="handleSubmit(userInfo)">
+                    <form class="col-sm-6" @submit.prevent="isValid ? handleSubmit(userInfo) : showToast()">
                         <div class="mb-3 login-form__username">
                             <label 
                                 for="email" 
@@ -41,7 +41,7 @@
                             >
                         </div>
                         
-                        <button type="submit" :disabled="isBtnDisabled" @click="showToast" class="btn btn-outline-primary w-100">Login</button>
+                        <button type="submit" class="btn btn-outline-primary w-100">Login</button>
                     </form>
                 </div>
             </div>
@@ -56,6 +56,19 @@ import './loginForm.scss';
 
   export default {
     name: 'LoginForm',
+    computed: {
+        isValid() {
+            if (this.userInfo.password.length && this.userInfo.password.length < 8) {
+                return false
+            }
+            else if (!/[a-zа-яё]/i.test(this.userInfo.password))  {
+                return false
+            }
+            else if(this.userInfo.password.length >= 8 && /[a-zа-яё]/i.test(this.userInfo.password)) {
+                return true
+            } else return true
+        }
+    },
     methods: {
         ...mapActions({
             handleSubmit: 'postLoginData'
@@ -64,11 +77,8 @@ import './loginForm.scss';
             if (this.userInfo.password.length && this.userInfo.password.length < 8) {
               this.$toastr.e("Password must contain at least 8 characters");
             }
-            if (!/[a-zа-яё]/i.test(this.userInfo.password))  {
+            else if (!/[a-zа-яё]/i.test(this.userInfo.password))  {
                 this.$toastr.e("Password must contain at least 1 letter");
-            }
-            if (this.userInfo.password.length > 8 && /[a-zа-яё]/i.test(this.userInfo.password)) {
-               this.$toastr.s("Password is valid");
             }
         }
     },
@@ -78,7 +88,6 @@ import './loginForm.scss';
                 email: '',
                 password: '',
             },
-            isBtnDisabled: false,
         }
     }
   }

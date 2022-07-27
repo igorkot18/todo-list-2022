@@ -155,6 +155,7 @@ export default {
         },
         deleteAll() {
             this.todos = []
+            this.$toastr.w("All todos was deleted");
         },
         async getTodos() {
             try {
@@ -178,9 +179,10 @@ export default {
                     title: this.title,
                     completed: false,
                 }
-
+                
                 this.todos.unshift(newTodo);
                 this.title = '';
+                this.$toastr.s("New todo was created");
             }
         }
     },

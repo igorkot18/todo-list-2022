@@ -48,18 +48,34 @@
               </template>
               <div class="container">
                 <div class="row">
-                  <h4 class="col-12">
-                    {{`Username: ${foundUserById.username}`}}
-                  </h4>
-                  <h4 class="col-12">
-                    {{`Email: ${foundUserById.email}`}}
-                  </h4>
-                  <h4 class="col-12">
-                    Phone: <a>{{foundUserById.phone}}</a>
-                  </h4>
-                  <h4 class="col-12">
-                    {{`Website: ${foundUserById.website}`}}
-                  </h4>
+                  <div class="d-flex col-12">
+                    <h4 class="col-5">
+                      Username: 
+                    </h4>
+                    <h4 class="col-7">{{foundUserById.username}}</h4>
+                  </div>
+
+                  <div class="d-flex col-12">
+                    <h4 class="col-5">
+                      Email: 
+                    </h4>
+                    <a class="col-7" href="#" target="_blank">{{foundUserById.email}}</a>
+                  </div>
+                  
+                  <div class="d-flex col-12">
+                    <h4 class="col-5">
+                      Phone: 
+                    </h4>
+                    <a class="col-7" href="#" target="_blank">{{foundUserById.phone}}</a>
+                  </div>
+
+                  <div class="d-flex col-12">
+                    <h4 class="col-5">
+                      Website: 
+                    </h4>
+                    <a class="col-7" href="#" target="_blank">{{foundUserById.website}}</a>
+                  </div>
+
                 </div>
               </div>
             </b-modal>
