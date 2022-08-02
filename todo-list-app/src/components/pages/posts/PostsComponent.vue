@@ -115,8 +115,9 @@ export default {
     async getPosts() {
       try {
         const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-        const data = await response.data;
-        this.posts = data;
+        if (response.data) {
+          this.posts = response.data;
+        }
         this.loading = false;
       } catch(error) {
         console.error(error)

@@ -145,8 +145,9 @@ export default {
     async getUsers() {
       try {
         const response = await axios.get('https://jsonplaceholder.typicode.com/users');
-        const data = await response.data;
-        this.users = data;
+        if (response.data) {
+          this.users = response.data;
+        } 
         this.loading = false;
       } catch(error) {
         console.error(error)
